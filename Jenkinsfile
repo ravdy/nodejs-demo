@@ -1,12 +1,12 @@
 pipeline {
     agent any 
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('valaxytech-dockerhub')
+    DOCKERHUB_CREDENTIALS = credentials('valaxy-dockerhub')
     }
     stages { 
         stage('SCM Checkout') {
             steps{
-            git 'https://github.com/ravdy/nodeapp-demo.git'
+            git 'https://github.com/ravdy/nodejs-demo.git'
             }
         }
 
@@ -22,7 +22,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push valaxy/taxigrabber:$BUILD_NUMBER'
+                sh 'docker push valaxy/nodeapp:$BUILD_NUMBER'
             }
         }
 }
