@@ -2,7 +2,11 @@ pipeline {
     agent any 
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
-    BRANCH = "${env.GIT_BRANCH}"    
+    BRANCH = "${env.GIT_BRANCH}"
+    TAG = "${env.BRANCH}.${env.${env.BUILD_NUMBER}".drop(15)
+    DEV_TAG = "${env.BRANCH}.${env.BUILD_NUMBER}".drop(7)
+    MASTER_TAG = "${env.BRANCH}.${env.BUILD_NUMBER}".drop(7)
+    VERSION = "${env.TAG}
     }
     
     stages { 
@@ -11,6 +15,25 @@ pipeline {
             git 'https://github.com/kandula1578/nodejs.git'
             }
         }
+        
+    stage("list environment variables") {
+        steps {
+            sh "printenv | sort"
+            echo "${DEV_TAG}.latest"
+            script{
+                if (BRANCH.contains ('origin/master')) {
+                    echo 'branch is develop'
+                    $VERSION = "${env.DEV_TAG}.latest"]
+                    echo "${env.VERSION}"
+                }
+                if (BRANCH.contains ('origin/develop')) {
+                    echo 'branch is develop'
+                    $VERSION = "${env.DEV_TAG}.latest"]
+                    echo "${env.VERSION}"
+                }
+            }
+        }
+    }        
         
         stage('Build docker image') {
             steps {  
