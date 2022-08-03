@@ -2,6 +2,7 @@ pipeline {
     agent any 
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
+    BRANCH = "${env.GIT_BRANCH}"
     }
     stages { 
         stage('SCM Checkout') {
@@ -12,7 +13,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t kandula17/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t kandula17/nodeapp:$BRANCH .'
             }
         }
         stage('login to dockerhub') {
@@ -22,7 +23,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push kandula17/nodeapp:$BUILD_NUMBER'
+                sh 'docker push kandula17/nodeapp:$BRANCH'
             }
         }
 }
