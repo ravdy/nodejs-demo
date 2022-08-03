@@ -15,10 +15,10 @@ pipeline {
         
         stage('Build docker image') {
             steps { 
-                script {
-                    def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    echo ${BRANCH}
-                }
+//                 script {
+//                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+//                     echo ${BRANCH}
+//                 }
                     sh 'docker build -t kandula17/nodeapp:$TAG .'                
             }
         }
@@ -29,10 +29,10 @@ pipeline {
         }
         stage('push image') {
             steps{
-                script {
-                    def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
-                    echo ${BRANCH}
-                }
+//                 script {
+//                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+//                     echo ${BRANCH}
+//                 }
                     sh 'docker push -t kandula17/nodeapp:$TAG'                
             }
         }
