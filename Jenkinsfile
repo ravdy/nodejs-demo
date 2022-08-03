@@ -3,7 +3,7 @@ pipeline {
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
     BRANCH = "${env.GIT_BRANCH}"
-    TAG = BRANCH.substring(0,4)
+        TAG = BRANCH.substring(7,BRANCH.length())
     }
     
     stages { 
@@ -33,7 +33,7 @@ pipeline {
 //                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
 //                     echo ${BRANCH}
 //                 }
-                    sh 'docker push -t kandula17/nodeapp:$TAG'                
+                    sh 'docker push kandula17/nodeapp:$TAG'                
             }
         }
 }
