@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t kandula/nodeapp:$BRANCH-lateset .'
+                sh 'docker build -tag kandula/nodeapp:$BRANCH-lateset .'
             }
         }
         stage('login to dockerhub') {
