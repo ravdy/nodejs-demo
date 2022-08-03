@@ -3,9 +3,9 @@ pipeline {
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
     BRANCH = "${env.GIT_BRANCH}"
-    TAG = "${env.BRANCH}.${env.${env.BUILD_NUMBER}".drop(15)
-    DEV_TAG = "${env.BRANCH}.${env.BUILD_NUMBER}".drop(7)
-    MASTER_TAG = "${env.BRANCH}.${env.BUILD_NUMBER}".drop(7)
+    TAG = "${env.BRANCH}.${env.${env.BUILD_NUMBER}"
+    DEV_TAG = "${env.BRANCH}.${env.BUILD_NUMBER}"
+    MASTER_TAG = "${env.BRANCH}.${env.BUILD_NUMBER}"
     VERSION = "${env.TAG}
     }
     
