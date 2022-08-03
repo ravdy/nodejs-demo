@@ -17,8 +17,8 @@ pipeline {
                 script {
                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     echo ${BRANCH}
+                    docker build -t kandula17/nodeapp:${BRANCH} .
                 }
-                sh 'docker build -t kandula17/nodeapp:$BRANCH .'
             }
         }
         stage('login to dockerhub') {
@@ -28,7 +28,11 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push kandula17/nodeapp:$BRANCH'
+                script {
+                    def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
+                    echo ${BRANCH}
+                    docker build -t kandula17/nodeapp:${BRANCH} .
+                }
             }
         }
 }
