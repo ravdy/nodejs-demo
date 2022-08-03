@@ -17,7 +17,7 @@ pipeline {
                 script {
                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     echo ${BRANCH}
-                    docker build -t kandula17/nodeapp:${BRANCH} .
+                    sh 'docker build -t kandula17/nodeapp:$BUILD_NUMBER .'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
                 script {
                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     echo ${BRANCH}
-                    docker build -t kandula17/nodeapp:${BRANCH} .
+                    sh 'docker push -t kandula17/nodeapp:$BUILD_NUMBER'
                 }
             }
         }
