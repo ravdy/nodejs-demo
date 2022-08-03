@@ -2,7 +2,7 @@ pipeline {
     agent any 
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
-    BRANCH = "${env.GIT_BRANCH}"
+    BRANCH = "${env.GIT_BRANCH}.${BUILD_NUMBER}"
     TAG = BRANCH.substring(7,BRANCH.length())
     }
     
