@@ -2,7 +2,8 @@ pipeline {
     agent any 
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
-//    BRANCH = "${env.GIT_BRANCH}"
+    BRANCH = "${env.GIT_BRANCH}"
+    TAG = BRANCH.substring(0,4)
     }
     
     stages { 
@@ -17,8 +18,8 @@ pipeline {
                 script {
                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     echo ${BRANCH}
-                    sh 'docker build -t kandula17/nodeapp:$BUILD_NUMBER .'
                 }
+                    sh 'docker build -t kandula17/nodeapp:$TAG .'                
             }
         }
         stage('login to dockerhub') {
@@ -31,8 +32,8 @@ pipeline {
                 script {
                     def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD').trim()
                     echo ${BRANCH}
-                    sh 'docker push -t kandula17/nodeapp:$BUILD_NUMBER'
                 }
+                    sh 'docker push -t kandula17/nodeapp:$TAG'                
             }
         }
 }
