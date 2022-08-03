@@ -3,7 +3,7 @@ pipeline {
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
     BRANCH = "${env.GIT_BRANCH}"
-        TAG = BRANCH.substring(7,BRANCH.length())
+    TAG = BRANCH.substring(7,BRANCH.length())
     }
     
     stages { 
