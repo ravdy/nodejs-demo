@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -tag kandula/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t kandula17/nodeapp:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
@@ -22,7 +22,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push kandula/nodeapp:$BUILD_NUMBER'
+                sh 'docker push kandula17/nodeapp:$BUILD_NUMBER'
             }
         }
 }
