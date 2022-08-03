@@ -2,28 +2,13 @@ pipeline {
     agent any 
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
-    BRANCH = "${env.GIT_BRANCH}"
-    TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(15)
-    DEV_TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(7)
-    MASTER_TAG = "${env.BRANCH}.${env.COMMIT_HASH}.${env.BUILD_NUMBER}".drop(7)    
+    BRANCH = "${env.GIT_BRANCH}"    
     }
+    
     stages { 
         stage('SCM Checkout') {
             steps{
             git 'https://github.com/kandula1578/nodejs.git'
-            }
-        }
-        
-        stage("checkout") {
-            when {
-                    branch "origin/dev"
-                    branch "origin/master"
-                }
-            steps {
-                sh "printenv | sort"
-                echo "Dev Tag is -- ${env.DEV_TAG}"
-                echo "Master Tag is --${env.MASTER_TAG}"
-                echo "Version is -- ${env.$VERSION}"
             }
         }
         
