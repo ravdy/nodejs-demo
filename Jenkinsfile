@@ -1,5 +1,5 @@
 pipeline {
-    agent docker-node
+    agent {labe1 "docker-node"}
     environment {
     DOCKERHUB_CREDENTIALS = credentials('docker-hub-login')
     }
