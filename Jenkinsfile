@@ -4,12 +4,6 @@ pipeline {
     DOCKERHUB_CREDENTIALS = credentials('docker-hub-login')
     }
     stages { 
-        stage('SCM Checkout') {
-            steps{
-            git 'https://github.com/PottaAkhil/nodejs-demo.git'
-            }
-        }
-
         stage('Build docker image') {
             steps {  
                 sh 'docker build -t success0510/nodeapp:$BUILD_NUMBER .'
