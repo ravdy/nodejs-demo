@@ -6,7 +6,7 @@ pipeline {
     stages { 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t PottaAkhil/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t success0510/nodeapp:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
@@ -16,7 +16,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push PottaAkhil/nodeapp:$BUILD_NUMBER'
+                sh 'docker push success0510/nodeapp:$BUILD_NUMBER'
             }
         }
 }
