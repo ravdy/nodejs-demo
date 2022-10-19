@@ -1,7 +1,7 @@
 pipeline {
     agent {label 'docker-node'}
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker-hub-login')
+    DOCKERHUB_CREDENTIALS = credentials('docker-hub')
     }
     stages { 
         stage('SCM Checkout') {
