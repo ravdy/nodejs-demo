@@ -23,9 +23,9 @@ pipeline {
         stage('push image') {
             steps{
                 sh 'docker push success0510/nodeapp:$BUILD_NUMBER'
+                }
             }
-         }
-       }
+        }
         stage('k8s Deploy'){
             steps{
                 script{
