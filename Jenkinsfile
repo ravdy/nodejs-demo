@@ -24,9 +24,9 @@ pipeline {
             steps{
                 sh 'docker push success0510/nodeapp:$BUILD_NUMBER'
             }
-        }
-      }
-      stage('Deploy to k8s'){
+         }
+       }
+       stage('Deploy to k8s'){
             steps{
                 script{
                     kubernetesDeploy (configs: 'deploymentservice.yaml',kubeconfigId: 'k8sconfigpwd')
