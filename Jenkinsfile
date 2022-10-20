@@ -25,8 +25,8 @@ pipeline {
                 sh 'docker push success0510/nodeapp:$BUILD_NUMBER'
                 }
             }
-        }
-        stage('Deploy to k8s'){
+        
+        stage('Deploy to k8s') {
             steps{
                 script{
                     withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://9E2401C37C33CF9F28122CA7D450AA0B.yl4.us-west-2.eks.amazonaws.com']) {
