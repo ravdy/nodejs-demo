@@ -12,7 +12,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t success0510/nodeap:$BUILD_NUMBER .'
+                sh 'docker build -t success0510/nodeapp:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
