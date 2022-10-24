@@ -18,20 +18,20 @@ pipeline {
                 sh 'docker build -t kandula17/nodeapp:${GIT_BRANCH#*/} .'                
             }
         }
-        stage('login to dockerhub') {
-            steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-        stage('push image') {
-            steps{
-                sh 'docker push kandula17/nodeapp:${GIT_BRANCH#*/}'                
-            }
-        }
-}
-post {
-        always {
-            sh 'docker logout'
-        }
-    }
-}
+//         stage('login to dockerhub') {
+//             steps{
+//                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+//             }
+//         }
+//         stage('push image') {
+//             steps{
+//                 sh 'docker push kandula17/nodeapp:${GIT_BRANCH#*/}'                
+//             }
+//         }
+// }
+// post {
+//         always {
+//             sh 'docker logout'
+//         }
+//     }
+// }
