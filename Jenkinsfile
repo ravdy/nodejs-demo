@@ -1,5 +1,8 @@
 pipeline {
-    agent any 
+    agent any
+    parameters {
+    choice(name: 'Branch', choices: ['master', 'dev', 'uat'], description: 'Pick something')
+    }
     environment {
     DOCKERHUB_CREDENTIALS = credentials('kandula-dockerhub')
 //     BRANCH = "${env.GIT_BRANCH}.${BUILD_NUMBER}"
@@ -14,7 +17,7 @@ pipeline {
 
         stage('Build docker image') {
             steps {
-                sh 'docker build -t kandula17/nodeapp:${GIT_BRANCH#*/} .'
+                sh 'docker build -t kandula17/nodeapp:${Branch} .'
             }
         }
         stage('login to dockerhub') {
