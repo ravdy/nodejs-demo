@@ -53,7 +53,7 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination public.ecr.aws/x2e7b0r9/nodeapplication/hello-kaniko:1.1      
+            /kaniko/executor --context `pwd` --destination 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images/hello-kaniko:1.1      
           '''
         }
       }
@@ -61,8 +61,8 @@ podTemplate(yaml: '''
     stage('Pushing to ECR') {
       steps{  
          script {
-                sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x2e7b0r9'
-                sh 'docker push public.ecr.aws/x2e7b0r9/nodeapplication:latest'
+                sh 'aws ecr get-login-password --region ap-southeast-1 | docker login --username AWS --password-stdin 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com'
+                sh 'docker push 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images:latest'
          }
         }
       }  
