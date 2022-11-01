@@ -48,14 +48,7 @@ podTemplate(yaml: '''
     environment {
         registry = "public.ecr.aws/x2e7b0r9/nodeapplication"
     }
-    stage('Pushing to ECR') {
-      steps{  
-         script {
-                sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x2e7b0r9'
-                sh 'docker push public.ecr.aws/x2e7b0r9/nodeapplication:latest'
-         }
-        }
-      }
+    
     stage('Build nodejs Image') {
       container('kaniko') {
         stage('Build a Go project') {
@@ -65,6 +58,14 @@ podTemplate(yaml: '''
         }
       }
     }
+    stage('Pushing to ECR') {
+      steps{  
+         script {
+                sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x2e7b0r9'
+                sh 'docker push public.ecr.aws/x2e7b0r9/nodeapplication:latest'
+         }
+        }
+      }  
     stage('Deploy to k8s') {
       container('kubectl') {
         stage('Deploy to K8s') {
