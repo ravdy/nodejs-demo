@@ -33,7 +33,7 @@ podTemplate(yaml: '''
       container('nodejs') {
         stage('Build a nodejs project') {
           sh '''
-          echo pwd
+            echo pwd
           '''
         }
       }
@@ -43,7 +43,7 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.0      
+            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.1      
           '''
         }
       }
