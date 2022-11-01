@@ -46,7 +46,7 @@ podTemplate(yaml: '''
     }
 
     environment {
-        registry = "public.ecr.aws/x2e7b0r9/nodeapplication"
+        registry = "957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images"
     }
     
     stage('Build nodejs Image') {
