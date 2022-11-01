@@ -8,9 +8,9 @@ podTemplate(yaml: '''
         command:
         - sleep
         args:
-        - 99d
+        - 999999
       - name: kubectl
-        image: kong/kubernetes-ingress-controller
+        image: kubernetes/pause:latest
         command:
         - sleep
         args:
@@ -49,15 +49,18 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.0
-    stage('Deploy to k8s') {
-            steps{
-                script{
-                    withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://525069FDBB7B3C7A8D6D4162E0F9585C.yl4.ap-southeast-1.eks.amazonaws.com']) {
-                    sh ('kubectl apply -f  deploymentservice.yaml')        
+            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.0      
           '''
         }
       }
     }
-   }
+    stage('Deploy to k8s') {
+      container('kubectl') {
+        stage('Deploy to K8s')
+          sh '''
+          kubectl apply -f  deploymentservice.yaml 
+          '''  
+      }
+    }
   }
+}
