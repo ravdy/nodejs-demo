@@ -9,6 +9,12 @@ podTemplate(yaml: '''
         - sleep
         args:
         - 99d
+      - name: kubectl
+        image:kubernetes/pause:latest
+        command:
+        - sleep
+        args:
+        - 99d  
       - name: kaniko
         image: gcr.io/kaniko-project/executor:debug
         command:
@@ -29,7 +35,7 @@ podTemplate(yaml: '''
 ''') {
   node(POD_LABEL) {
     stage('Get a nodejs project') {
-      git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'
+      git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'main'
       container('nodejs') {
         stage('Build a nodejs project') {
           sh '''
@@ -43,11 +49,17 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination success0510/hello-kaniko:1.0
+            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.0
+    stage('Deploy to k8s') {
+            steps{
+                script{
+                    withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://525069FDBB7B3C7A8D6D4162E0F9585C.yl4.ap-southeast-1.eks.amazonaws.com']) {
+                    sh ('kubectl apply -f  deploymentservice.yaml')        
           '''
         }
       }
     }
-
+   }
   }
+ } 
 }
