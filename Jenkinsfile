@@ -1,39 +1,53 @@
-pipeline {
-    agent any
-    environment {
-    DOCKERHUB_CREDENTIALS = credentials('docker')
-    }
-    stages { 
-        stage('SCM Checkout') {
-            steps{
-            git 'https://github.com/PottaAkhil/nodejs-demo.git'
-            }
+podTemplate(yaml: '''
+    apiVersion: v1
+    kind: Pod
+    spec:
+      containers:
+      - name: nodejs
+        image: thetips4you/nodeapp:latest
+        command:
+        - sleep
+        args:
+        - 99d
+      - name: kaniko
+        image: gcr.io/kaniko-project/executor:debug
+        command:
+        - sleep
+        args:
+        - 9999999
+        volumeMounts:
+        - name: kaniko-secret
+          mountPath: /kaniko/.docker
+      restartPolicy: Never
+      volumes:
+      - name: kaniko-secret
+        secret:
+            secretName: dockercred
+            items:
+            - key: .dockerconfigjson
+              path: config.json
+''') {
+  node(POD_LABEL) {
+    stage('Get a nodejs project') {
+      git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'main'
+      container('nodejs') {
+        stage('Build a nodejs project') {
+          sh '''
+          echo pwd
+          '''
         }
+      }
+    }
 
-        stage('Build docker image') {
-            steps {  
-                sh 'docker build -t success0510/nodeapp:$BUILD_NUMBER .'
-            }
+    stage('Build nodejs Image') {
+      container('kaniko') {
+        stage('Build a Go project') {
+          sh '''
+            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:1.0
+          '''
         }
-        stage('login to dockerhub') {
-            steps{
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-            }
-        }
-        stage('push image') {
-            steps{
-                sh 'docker push success0510/nodeapp:$BUILD_NUMBER'
-                }
-            }
-        
-        stage('Deploy to k8s') {
-            steps{
-                script{
-                    withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://9E2401C37C33CF9F28122CA7D450AA0B.yl4.us-west-2.eks.amazonaws.com']) {
-                    sh ('kubectl apply -f  deploymentservice.yaml')  
-                }
-            }
-        }
+      }
     }
-}
+
+  }
 }
