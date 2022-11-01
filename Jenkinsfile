@@ -14,7 +14,7 @@ podTemplate(yaml: '''
         command:
         - sleep
         args:
-        - 99d
+        - apply
       - name: kaniko
         image: gcr.io/kaniko-project/executor:debug
         command:
@@ -49,8 +49,20 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination public.ecr.aws/x2e7b0r9/nodeapplication/hello-kaniko:1.1      
+            /kaniko/executor --context `pwd` --destination success0510/hello-kaniko:1.1      
           '''
+        }
+      }
+    }
+    stage('deploy') {
+      steps {
+        script {
+          docker.withRegistry(
+            'https://<957288871734>.dkr.ecr.<us-east-1>.amazonaws.com',
+            'ecr.<us-east-1>:<ccc00f54-cbca-4299-a54c-729a142faab2>'){
+            def myImage = docker.Build( '<nodeapplication>')
+            myImage.push('<latest>')
+            }  
         }
       }
     }
