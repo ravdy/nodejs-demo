@@ -9,6 +9,12 @@ podTemplate(yaml: '''
         - sleep
         args:
         - 999999
+      - name: kubectl
+        image: bitnami/kubectl
+        command:
+        - sleep
+        args:
+        - 99999
       - name: kaniko
         image: gcr.io/kaniko-project/executor:debug
         command:
@@ -43,11 +49,10 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination bibinwilson/hello-kaniko:2.1      
+            /kaniko/executor --context `pwd` --destination success0510/hello-kaniko:1.1      
           '''
         }
       }
     }
-    
   }
 }
