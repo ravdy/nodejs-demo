@@ -49,23 +49,22 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination public.ecr.aws/x2e7b0r9/nodeapplication/hello-kaniko:1.1      
+            /kaniko/executor --context `pwd` --destination success0510/hello-kaniko:1.1      
           '''
         }
       }
     }
-    stage('deploy') {
-      steps {
-        script {
-          docker.withRegistry(
-            'https://<957288871734>.dkr.ecr.<us-east-1>.amazonaws.com',
-            'ecr.<us-east-1>:<ccc00f54-cbca-4299-a54c-729a142faab2>'){
-            def myImage = docker.Build( '<nodeapplication>')
-            myImage.push('<latest>')
-            }  
+     environment {
+        registry = "public.ecr.aws/x2e7b0r9/nodeapplication"
+    }
+     stage('Pushing to ECR') {
+     steps{  
+         script {
+                sh 'aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/x2e7b0r9'
+                sh 'docker push public.ecr.aws/x2e7b0r9/nodeapplication:latest'
+         }
         }
       }
-    }
     stage('Deploy to k8s') {
       container('kubectl') {
         stage('Deploy to K8s') {
