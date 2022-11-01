@@ -14,7 +14,7 @@ podTemplate(yaml: '''
         command:
         - sleep
         args:
-        - 99999
+        - apply
       - name: kaniko
         image: gcr.io/kaniko-project/executor:debug
         command:
