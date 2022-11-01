@@ -10,7 +10,7 @@ podTemplate(yaml: '''
         args:
         - 999999
       - name: kubectl
-        image: kubernetes/pause:latest
+        image: bitnami/kubectl
         command:
         - sleep
         args:
