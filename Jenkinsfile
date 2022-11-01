@@ -14,7 +14,7 @@ podTemplate(yaml: '''
         command:
         - sleep
         args:
-        - 999999  
+        - apply
       - name: kaniko
         image: gcr.io/kaniko-project/executor:debug
         command:
@@ -52,6 +52,15 @@ podTemplate(yaml: '''
             /kaniko/executor --context `pwd` --destination success0510/hello-kaniko:1.1      
           '''
         }
+      }
+    }
+    stage('Deploy to k8s') {
+      container('kubectl') {
+        stage('Deploy to K8s') {
+          sh '''
+            echo pwd && \
+            kubectl apply -f  deploymentservice.yaml 
+          '''  
       }
     }
   }
