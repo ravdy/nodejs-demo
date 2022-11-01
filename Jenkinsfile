@@ -9,12 +9,6 @@ podTemplate(yaml: '''
         - sleep
         args:
         - 999999
-      // - name: kubectl
-      //   image: bitnami/kubectl
-      //   command:
-      //   - sleep
-      //   args:
-      //   - 99999 
       - name: kaniko
         image: gcr.io/kaniko-project/executor:debug
         command:
