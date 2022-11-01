@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: nodejs-k8s
-          image: success0510/nodeapp1:$BUILD_NUMBER' # Image that will be used to containers in the cluster
+          image: success0510/hello-kaniko:$BUILD_NUMBER' # Image that will be used to containers in the cluster
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080 # The port that the container is running on in the cluster
