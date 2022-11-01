@@ -10,7 +10,7 @@ podTemplate(yaml: '''
         args:
         - 99d
       - name: kubectl
-        image: kubernetes/pause:latest
+        image: kong/kubernetes-ingress-controller
         command:
         - sleep
         args:
