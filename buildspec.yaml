@@ -19,6 +19,3 @@ spec:
       containers:
       - name: awsome-app-flux
         image: 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images
-        ports:
-           
-        
