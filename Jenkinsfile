@@ -60,7 +60,7 @@ podTemplate(yaml: '''
         stage('Deploy to K8s') {
           sh '''
             echo pwd && \
-            kubectl apply -f  buildspec.yaml
+            kubectl apply -f  flux.yaml
           '''  
       }
     }
