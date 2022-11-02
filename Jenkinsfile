@@ -50,20 +50,12 @@ podTemplate(yaml: '''
       container('kaniko') {
         stage('Build a Go project') {
           sh '''
-            /kaniko/executor --context `pwd` --destination 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images      
+            /kaniko/executor --context `pwd` --destination 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images:$BUILD_NUMBER && \
+             /kaniko/executor --context `pwd` --destination 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images:latest && \
           '''
         }
       }
     }
-    stage('Deploy to k8s') {
-      container('kubectl') {
-        stage('Deploy to K8s') {
-          sh '''
-            echo pwd && \
-            kubectl apply -f  flux.yaml
-          '''  
-      }
-    }
-  }
+    
 }
 }
