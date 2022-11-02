@@ -20,7 +20,5 @@ spec:
       - name: awsome-app-flux
         image: 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images
         ports:
-            - containerPort: 80
-              protocol: TCP
-          imagePullPolicy: Always
+           
         
