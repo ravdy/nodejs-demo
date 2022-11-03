@@ -4,7 +4,7 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: nodejs
-        image: node:fermium-slim
+        image: appdynamics/nodejs-agent
         command:
         - sleep
         args:
