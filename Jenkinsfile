@@ -4,7 +4,7 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: nodejs
-        image: thetips4you/nodeapp
+        image: node:6-alpine
         command:
         - sleep
         args:
