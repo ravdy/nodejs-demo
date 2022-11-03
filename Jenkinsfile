@@ -4,7 +4,7 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: nodejs
-        image: appdynamics/nodejs-agent
+        image: thetips4you/nodeapp
         command:
         - sleep
         args:
