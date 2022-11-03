@@ -4,6 +4,8 @@ metadata:
   name: nodejs-k8s-Deployment 
   labels:
     app: nodejs-k8s
+  annotations:
+    fluxcd.io/automated: "true"  
 spec:
   selector:
     matchLabels:
