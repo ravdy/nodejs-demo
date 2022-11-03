@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: appdynamics/nodejs-agent
+        image: thetips4you/nodeapp
         ports:
         - containerPort: 3000
