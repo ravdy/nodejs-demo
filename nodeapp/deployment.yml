@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: node:fermium-slim
+        image: appdynamics/nodejs-agent
         ports:
         - containerPort: 3000
