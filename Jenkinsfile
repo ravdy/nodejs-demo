@@ -4,7 +4,7 @@ podTemplate(yaml: '''
     spec:
       containers:
       - name: nodejs
-        image: thetips4you/nodeapp:latest
+        image: node:fermium-slim
         command:
         - sleep
         args:
