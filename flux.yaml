@@ -3,11 +3,11 @@ kind: Deployment
 metadata:
   name: awsome-app-flux
   labels:
-    app: app
+    app: awsome-app-flux
   annotations:
-    fluxcd.io/automated: "true"  
+    fluxcd.io/automated: "true"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: awsome-app-flux
@@ -18,17 +18,20 @@ spec:
     spec:
       containers:
       - name: awsome-app-flux
-        image: 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images
-        
+        image: 957288871734.dkr.ecr.ap-southeast-1.amazonaws.com/images:66
+        ports:
+          - containerPort: 8080
+
+---
+
 apiVersion: v1
 kind: Service
-metadata: 
+metadata:
   name: awsome-app-flux-svc
 spec:
   selector:
     app: awsome-app-flux
   ports:
     - protocol: "TCP"
-      port: 8080 
-      targetPort: 8080 
-  type: NodePort  
+      port: 80
+      targetPort: 3000
