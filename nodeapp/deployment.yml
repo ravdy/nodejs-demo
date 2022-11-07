@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: node:6-alpine
+        image: thetips4you/nodeapp:latest
         ports:
         - containerPort: 3000
