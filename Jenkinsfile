@@ -60,8 +60,8 @@ podTemplate(yaml: '''
     stage('Deploy to k8s') {
       container('kubectl') {
           sshagent(['docker']) {
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@52.221.196.44 kubectl apply -f flux.yaml"
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@52.221.196.44 kubectl apply -f ingress.yaml" 
+          sh "ssh -o StrictHostKeyChecking=no root@52.221.196.44 kubectl apply -f flux.yaml"
+          sh "ssh -o StrictHostKeyChecking=no root@52.221.196.44 kubectl apply -f ingress.yaml" 
           
       }
     }
