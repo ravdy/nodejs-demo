@@ -32,7 +32,8 @@ podTemplate(yaml: '''
             items:
             - key: .dockerconfigjson
               path: config.json
-''') {
+''') 
+  node {
     stage('Clone the Git') {
       git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'
   }
