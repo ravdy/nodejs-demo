@@ -37,14 +37,6 @@ podTemplate(yaml: '''
   node(POD_LABEL) {
     stage('Get a nodejs project') {
       git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'
-      container('nodejs') {
-        stage('Build a nodejs project') {
-          sh '''
-            echo pwd
-          '''
-        }
-      }
-    }
     stage('SonarQube analysis') {
     def scannerHome = tool 'sonarqube';
     withSonarQubeEnv('sonarqube') {
@@ -55,7 +47,16 @@ podTemplate(yaml: '''
       -D sonar.exclusions=vendor/**,resources/**,**/*.node \
       -D sonar.host.url=http://52.221.196.44:9000/"
     }
-  }
+  }    
+      container('nodejs') {
+        stage('Build a nodejs project') {
+          sh '''
+            echo pwd
+          '''
+        }
+      }
+    }
+    
 
     stage('Build nodejs Image') {
       container('kaniko') {
