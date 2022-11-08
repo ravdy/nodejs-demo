@@ -34,7 +34,7 @@ podTemplate(yaml: '''
               path: config.json
 ''') {
     stage('Clone the Git') {
-      git 'https://github.com/PottaAkhil/nodejs-demo.git'
+      git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'
   }
     
     stage('SonarQube analysis') {
@@ -48,7 +48,7 @@ podTemplate(yaml: '''
       -D sonar.host.url=http://52.221.196.44:9000/"
     }
   }
-  
+}
   node(POD_LABEL) {
     stage('Get a nodejs project') {
       git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'    
