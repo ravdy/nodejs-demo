@@ -57,7 +57,7 @@ podTemplate(yaml: '''
         }
       }
     }
-    tage('Deploy to k8s') {
+    stage('Deploy to k8s') {
       container('kubectl') {
         stage('Deploy to K8s') {
           sh '''
