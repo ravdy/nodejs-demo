@@ -36,7 +36,7 @@ podTemplate(yaml: '''
     
   node(POD_LABEL) {
     stage('Get a nodejs project') {
-      git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'    
+      git url: 'https://github.com/PottaAkhil/nodejs-OBT.git', branch: 'master'    
       container('nodejs') {
         stage('Build a nodejs project') {
           sh '''
