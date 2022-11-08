@@ -61,9 +61,8 @@ podTemplate(yaml: '''
       container('kubectl') {
         stage('Deploy to K8s') {
           sh '''
-            /kubectl apply -f  flux.yaml &&\
-           / kubectl apply -f  ingress.yaml
-            
+            echo pwd && \
+            kubectl apply -f  deploymentservice.yaml
           '''
       }
     }
