@@ -57,18 +57,6 @@ podTemplate(yaml: '''
         }
       }
     }
-    stage('Deploy to k8s') {
-      container('kubectl') {
-        
-        stage("deploy the docker image into deployment server"){
-           sshagent(['ubuntu']) {
-           sh 'ssh kubectl apply -f flux.yaml'
-	   sh 'ssh kubectl apply -f ingress.yaml' 
-          '''
-      }
-    }
-  }
-}
-}
+    
 }
 }
