@@ -57,14 +57,7 @@ podTemplate(yaml: '''
         }
       }
     }
-    stage('Deploy to k8s') {
-      
-          sshagent(['52.221.196.44']) {
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@52.221.196.44 kubectl apply -f flux.yaml"
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@52.221.196.44 kubectl apply -f ingress.yaml" 
-          
-      }
-    }
+    
   
 }
 }
