@@ -32,7 +32,8 @@ podTemplate(yaml: '''
             items:
             - key: .dockerconfigjson
               path: config.json
-''') 
+''') {
+    
   node(POD_LABEL) {
     stage('Get a nodejs project') {
       git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'    
