@@ -59,11 +59,11 @@ podTemplate(yaml: '''
     }
     stage('Deploy to k8s') {
       container('kubectl') {
-        stage('Deploy to K8s') {
-          sh '''
-         
-            /kaniko/executor --context kubectl apply -f  flux.yaml &&\
-            /kaniko/executor --context kubectl apply -f  ingress.yaml
+        
+        stage("deploy the docker image into deployment server"){
+           sshagent(['ubuntu']) {
+           sh "ssh kubectl apply -f flux.yaml
+	       sh "ssh kubectl apply -f ingress.yaml" 
           '''
       }
     }
