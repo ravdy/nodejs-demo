@@ -34,23 +34,6 @@ podTemplate(yaml: '''
               path: config.json
 ''') 
   node(POD_LABEL) {
-    stage('Clone the Git') {
-      git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'
-  }
-    
-    stage('SonarQube analysis') {
-    def scannerHome = tool 'sonarqube';
-    withSonarQubeEnv('sonarqube') {
-      sh "${scannerHome}/bin/sonar-scanner \
-      -D sonar.login=admin \
-      -D sonar.password=admin \
-      -D sonar.projectKey= nodejs\
-      -D sonar.exclusions=vendor/**,resources/**,**/*.node \
-      -D sonar.host.url=http://52.221.196.44:9000/"
-    }
-  }
-}
-  node(POD_LABEL) {
     stage('Get a nodejs project') {
       git url: 'https://github.com/PottaAkhil/nodejs-demo.git', branch: 'master'    
       container('nodejs') {
