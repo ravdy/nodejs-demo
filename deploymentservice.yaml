@@ -33,6 +33,7 @@ metadata:
 spec:
   selector:
     app: nodejst-k8s
+  type: LoadBalancer
   ports:
     - protocol: "TCP"
       port: 8080 
