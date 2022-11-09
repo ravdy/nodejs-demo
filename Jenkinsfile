@@ -45,7 +45,17 @@ podTemplate(yaml: '''
         }
       }
     }
-    
+    stage('SonarQube analysis') {
+    def scannerHome = tool 'sonarqube';
+    withSonarQubeEnv('sonarqube') {
+      sh "${scannerHome}/bin/sonar-scanner \
+      -D sonar.login=admin \
+      -D sonar.password=admin \
+      -D sonar.projectKey= nodejs \
+      -D sonar.exclusions=vendor/**,resources/**,**/*.js \
+      -D sonar.host.url=http://54.169.237.40:9000/"
+    }
+  }
 
     stage('Build nodejs Image') {
       container('kaniko') {
