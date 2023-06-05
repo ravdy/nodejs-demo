@@ -1,23 +1,19 @@
 pipeline {
-    agent any
-    stages { 
-        
-        stage('SCM Checkout') {
-            steps{
-            git 'https://github.com/Kchaubey/nodejs-demo.git'
-            }
-        }
-
-        stage('Build docker image') {
-            steps {  
-                sh 'docker build -t my_docker_image .'
-            }
-        }
-        stage('Run docker container') {
-            steps{
-                sh 'docker run -it --privileged --name my_container my_docker_image'
-            }
+   agent any
+   stages {
+       stage('Build Code') {
+           steps {
+               sh """
+               echo "Building Artifact"
+               """
+           }
        }
+      stage('Deploy Code') {
+          steps {
+               sh """
+               echo "Deploying Code"
+               """
+          }
+      }
    }
 }
-
